@@ -8,10 +8,10 @@ function randomNumber (start, end) {
   Умножаем для масштабирования на заданный диапазон
   Добавляем начальное значение для включения в диапазон
   */
-  return console.log(Math.floor(Math.random() * (end - start + 1)) + start);
+  return Math.floor(Math.random() * (end - start + 1)) + start;
 }
 
 function maxLength (string, length) {
-  console.log(string.length <= length);
+  string.length <= length;
 }
 
