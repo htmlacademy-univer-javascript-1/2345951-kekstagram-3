@@ -1,6 +1,6 @@
 function randomNumber (start, end) {
   if (start > end || start < 0) {
-    return console.log('Неверные входные данные');
+    throw new Error('Неверные входные данные');
   }
   /*
   Math.floor - округление до ближайшего целого числа (<=)
@@ -11,7 +11,7 @@ function randomNumber (start, end) {
   return Math.floor(Math.random() * (end - start + 1)) + start;
 }
 
-function maxLength (string, length) {
-  string.length <= length;
+function checkMaxLength (str, maxLength) {
+  str.length <= maxLength;
 }
 
