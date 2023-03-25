@@ -1,6 +1,6 @@
 import { photos } from './data.js';
 
-const template = document.querySelectorAll('#picture');
+const template = document.querySelectorAll('#picture').content;
 const fragment = document.createDocumentFragment();
 const pictures = document.querySelector('.pictures');
 
