@@ -62,13 +62,14 @@ noUiSlider.create(sliderElement, {
   step: 1,
   connect: 'lower',
 });
-sliderElement.setAttribute('disabled', true);
-
+sliderElement.setAttribute('hidden', true);
 
 function setEffect(effect, flag) {
   const image = imgUploadPreview.querySelector('img');
   if (effect === 'original') {
+    sliderElement.setAttribute('hidden', true);
     image.className = '';
+    image.style.filter = '';
     return;
   }
   const minValue = filters[effect].min;
@@ -77,6 +78,7 @@ function setEffect(effect, flag) {
   const measureValue = filters[effect].measure;
   const nameValue = filters[effect].name;
   if (!flag) {
+    image.style.setProperty('filter', `${nameValue}(${maxValue}${measureValue})`);
     sliderElement.noUiSlider.updateOptions({
       range: {
         min: minValue,
@@ -85,7 +87,7 @@ function setEffect(effect, flag) {
       start: maxValue,
       step: stepValue
     });
-    sliderElement.removeAttribute('disabled', true);
+    sliderElement.removeAttribute('hidden', true);
     image.className = '';
     image.classList.add(`effects__preview--${effect}`);
     currentEffect = effect;
@@ -95,7 +97,7 @@ function setEffect(effect, flag) {
   }
 }
 
-sliderElement.noUiSlider.on('update', () => {
+sliderElement.noUiSlider.on('slide', () => {
   sliderElementValue.value = sliderElement.noUiSlider.get();
   sliderValue = sliderElement.noUiSlider.get();
   setEffect(currentEffect, true);
