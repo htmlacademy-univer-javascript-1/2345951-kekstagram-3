@@ -5,12 +5,7 @@ const decreaseButton = document.querySelector('.scale__control--smaller');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
 imgUploadPreview.style.setProperty('transform','scale(1.0)');
 let styleValueNumber = imgUploadPreview.style.getPropertyValue('transform').replace(/\D/g,'');
-const chromeLable = document.querySelector('#effect-chrome');
-const originalLable = document.querySelector('#effect-none');
-const sepiaLabel = document.querySelector('#effect-sepia');
-const marvinLabel = document.querySelector('#effect-marvin');
-const phobosLabel = document.querySelector('#effect-phobos');
-const heatLabel = document.querySelector('#effect-heat');
+const filtersLabels = document.querySelectorAll('.effects_radio');
 const sliderElement = document.querySelector('.effect-level__slider');
 const sliderElementValue = document.querySelector('.effect-level__value');
 let sliderValue;
@@ -103,29 +98,12 @@ sliderElement.noUiSlider.on('slide', () => {
   setEffect(currentEffect, true);
 });
 
-heatLabel.addEventListener('click', () => {
-  setEffect('heat');
-});
-
-phobosLabel.addEventListener('click', () => {
-  setEffect('phobos');
-});
-
-marvinLabel.addEventListener('click', () => {
-  setEffect('marvin');
-});
-
-sepiaLabel.addEventListener('click', () => {
-  setEffect('sepia');
-});
-
-chromeLable.addEventListener('click', () => {
-  setEffect('chrome');
-});
-
-originalLable.addEventListener('click', () => {
-  setEffect('original');
-});
+filtersLabels.forEach( (element) => {
+  element.addEventListener('click', () => {
+    setEffect(element.value);
+  });
+}
+);
 
 function increaseScale() {
   if (scaleValueNumber === 100) {
