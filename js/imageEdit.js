@@ -5,7 +5,7 @@ const decreaseButton = document.querySelector('.scale__control--smaller');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
 imgUploadPreview.style.setProperty('transform','scale(1.0)');
 let styleValueNumber = imgUploadPreview.style.getPropertyValue('transform').replace(/\D/g,'');
-const filtersLabels = document.querySelectorAll('.effects_radio');
+const filtersLabels = document.querySelectorAll('.effects__radio');
 const sliderElement = document.querySelector('.effect-level__slider');
 const sliderElementValue = document.querySelector('.effect-level__value');
 let sliderValue;
@@ -48,6 +48,12 @@ const filters = {
   }
 };
 
+filtersLabels.forEach( (element) => {
+  element.addEventListener('click', () => {
+    setEffect(element.value);
+  });
+});
+
 noUiSlider.create(sliderElement, {
   range: {
     min: 0,
@@ -67,20 +73,16 @@ function setEffect(effect, flag) {
     image.style.filter = '';
     return;
   }
-  const minValue = filters[effect].min;
-  const maxValue = filters[effect].max;
-  const stepValue = filters[effect].step;
-  const measureValue = filters[effect].measure;
-  const nameValue = filters[effect].name;
+  const {max, step, measure, name, min} = filters[effect];
   if (!flag) {
-    image.style.setProperty('filter', `${nameValue}(${maxValue}${measureValue})`);
+    image.style.setProperty('filter', `${name}(${max}${measure})`);
     sliderElement.noUiSlider.updateOptions({
       range: {
-        min: minValue,
-        max: maxValue,
+        min: min,
+        max: max,
       },
-      start: maxValue,
-      step: stepValue
+      start: max,
+      step: step
     });
     sliderElement.removeAttribute('hidden', true);
     image.className = '';
@@ -88,7 +90,7 @@ function setEffect(effect, flag) {
     currentEffect = effect;
   }
   else {
-    image.style.filter = `${nameValue}(${sliderValue}${measureValue})`;
+    image.style.filter = `${name}(${sliderValue}${measure})`;
   }
 }
 
@@ -97,13 +99,6 @@ sliderElement.noUiSlider.on('slide', () => {
   sliderValue = sliderElement.noUiSlider.get();
   setEffect(currentEffect, true);
 });
-
-filtersLabels.forEach( (element) => {
-  element.addEventListener('click', () => {
-    setEffect(element.value);
-  });
-}
-);
 
 function increaseScale() {
   if (scaleValueNumber === 100) {
