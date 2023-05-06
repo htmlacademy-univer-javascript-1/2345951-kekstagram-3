@@ -123,3 +123,4 @@ function decreaseScale() {
 increaseButton.addEventListener('click', increaseScale);
 decreaseButton.addEventListener('click', decreaseScale);
 
+export { setEffect };
